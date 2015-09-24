@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chance of Esophageal Cancer</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Chance of Esophageal Cancer">
+  <meta name="author" content="Kenneth Kihara">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Chance of Esophageal Cancer</h1>
+    <h2>How likely are you to have Esophageal Cancer?</h2>
+    <p>Kenneth Kihara<br/>Programmer</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Usage</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This shiny app calculates the chance that a person will have esophageal 
+cancer given age, alcohol consumption, and tobacco consumption. Choose 
+the inputs by moving the appropriate slider. The output is printed under 
+&quot;Predicted Chance of Esophageal Cancer:&quot;</p>
+
+<h2>Data</h2>
+
+<p>The data used for predicting esophageal cancer was taken from the esoph 
+dataset in the R datasets package. The predictors used are:</p>
+
+<ul>
+<li>Age Group</li>
+<li>Daily Alcohol Consumption</li>
+<li>Daily Tobacco Consumption</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Why use this application?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Promote awareness of esophageal cancer</li>
+<li>Diagnose and seek treatment sooner</li>
+<li>Supporting evidence that alchol and tobacco causes cancer</li>
+<li>Determine a quick prediction of your chance of cancer</li>
+<li>Show the dangers of alcohol and tobacco consumption</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Accuracy</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The model was trained with a 10-fold cross validation. Giving an accuracy 
+and standard deviation of:</p>
+
+<pre><code class="r">fit$results$Accuracy
+</code></pre>
+
+<pre><code>## [1] 0.8164296
+</code></pre>
+
+<pre><code class="r">fit$results$AccuracySD
+</code></pre>
+
+<pre><code>## [1] 0.03069731
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Plots</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Plots of frequency of age vs alcohol consumption and age vs tobacco 
+consumption.
+<img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Usage'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Why use this application?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Accuracy'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Plots'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

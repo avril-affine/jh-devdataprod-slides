@@ -1,0 +1,107 @@
+---
+title       : Chance of Esophageal Cancer
+subtitle    : How likely are you to have Esophageal Cancer?
+author      : Kenneth Kihara
+job         : Programmer
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Usage
+This shiny app calculates the chance that a person will have esophageal 
+cancer given age, alcohol consumption, and tobacco consumption. Choose 
+the inputs by moving the appropriate slider. The output is printed under 
+"Predicted Chance of Esophageal Cancer:"
+
+## Data
+The data used for predicting esophageal cancer was taken from the esoph 
+dataset in the R datasets package. The predictors used are:
+
+- Age Group
+- Daily Alcohol Consumption
+- Daily Tobacco Consumption
+
+---
+
+## Why use this application?
+
+1. Promote awareness of esophageal cancer
+2. Diagnose and seek treatment sooner
+3. Supporting evidence that alchol and tobacco causes cancer
+4. Determine a quick prediction of your chance of cancer
+5. Show the dangers of alcohol and tobacco consumption
+
+---
+
+## Accuracy
+The model was trained with a 10-fold cross validation. Giving an accuracy 
+and standard deviation of:
+```{r, echo=FALSE}
+library(caret)
+library(datasets)
+df <- esoph
+x <- factor(esoph$agegp, levels=levels(esoph$agegp), 
+            labels=c("29.5","39.5","49.5","59.5","69.5","79.5"))
+df$agegp <- as.numeric(as.character(x))
+x <- factor(esoph$alcgp, levels=levels(esoph$alcgp), 
+            labels=c("19.5","59.5","99.5","139.5"))
+df$alcgp <- as.numeric(as.character(x))
+x <- factor(esoph$tobgp, levels=levels(esoph$tobgp), 
+            labels=c("4.5","14.5","24.5","34.5"))
+df$tobgp <- as.numeric(as.character(x))
+fin_data <- NULL
+for (i in 1:nrow(esoph)) {
+    num_cases <- df$ncases[i]
+    num_ctrls <- df$ncontrols[i] - num_cases
+    cases <- NULL
+    ctrls <- NULL
+    row <- c(df$agegp[i], df$alcgp[i], df$tobgp[i])
+    while (num_cases > 0) {
+        cases <- rbind(cases, c(row, 1))
+        num_cases <- num_cases - 1
+    }
+    while (num_ctrls > 0) {
+        ctrls <- rbind(ctrls, c(row, 0))
+        num_ctrls <- num_ctrls - 1
+    }
+    fin_data <- rbind(fin_data, cases, ctrls)
+}
+fin_data <- data.frame(fin_data)
+names(fin_data) <- c("agegp","alcgp","tobgp","outcome")
+ctrl <- trainControl(method="repeatedcv", number=10, repeats=10)
+fit <- train(factor(outcome)~.,data=fin_data,method="glm",family="binomial",
+             trControl=ctrl)
+```
+
+```{r}
+fit$results$Accuracy
+fit$results$AccuracySD
+```
+
+---
+
+## Plots
+
+Plots of frequency of age vs alcohol consumption and age vs tobacco 
+consumption.
+```{r, echo=FALSE}
+pos <- subset(fin_data, outcome==1)
+pos$n <- 1
+agevsalc <- aggregate(n~agegp+alcgp, data=pos, FUN=sum)
+agevstob <- aggregate(n~agegp+tobgp, data=pos, FUN=sum)
+par(mfrow=c(1,2))
+plot(agevsalc$agegp, agevsalc$alcgp, type="n",
+     xlab="Age (years)", ylab="Alcohol Consumption (gm/day)",
+     main="Alcohol vs Age Frequencies")
+points(agevsalc$agegp, agevsalc$alcgp, pch=21, cex=agevsalc$n/5, 
+       bg="steelblue2")
+plot(agevstob$agegp, agevstob$tobgp, type="n",
+     xlab="Age (years)", ylab="Tobacco Consumption (gm/day)",
+     main="Tobacco vs Age Frequencies")
+points(agevstob$agegp, agevstob$tobgp, pch=21, cex=agevstob$n/5, 
+       bg="steelblue2")
+```
