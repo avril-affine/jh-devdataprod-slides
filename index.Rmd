@@ -93,6 +93,7 @@ pos <- subset(fin_data, outcome==1)
 pos$n <- 1
 agevsalc <- aggregate(n~agegp+alcgp, data=pos, FUN=sum)
 agevstob <- aggregate(n~agegp+tobgp, data=pos, FUN=sum)
+
 par(mfrow=c(1,2))
 plot(agevsalc$agegp, agevsalc$alcgp, type="n",
      xlab="Age (years)", ylab="Alcohol Consumption (gm/day)",
